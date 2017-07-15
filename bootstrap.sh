@@ -16,12 +16,12 @@ if [ ! -d $GO_INSTALL_FOLDER/go ];then
 	echo 'Unpacking go language'
 	tar -C $GO_INSTALL_FOLDER -xzf go$GO_VERSION.linux-amd64.tar.gz
 	rm go$GO_VERSION.linux-amd64.tar.gz
-	chown -R vagrant:vagrant go
 
 	echo 'Setting up Go Environment'
 	echo 'export PATH=$PATH:'$GO_INSTALL_FOLDER'/go/bin' >> .profile
 	echo 'export GOPATH='$GOPATH >> .profile
 	echo 'export PATH=$PATH:$GOPATH/bin' >> .profile
+	echo 'sudo chown -R vagrant:vagrant go' >> .profile #TODO: do this better
 
 else
 	echo 'Go already installed. Skipping.'

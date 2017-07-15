@@ -12,7 +12,7 @@ apt-get -y install git mercurial
 
 if [ ! -d $GO_INSTALL_FOLDER/go ];then
 	echo 'Downloading go'$GO_VERSION'.linux-amd64.tar.gz'
-	wget –q https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz
+	wget –q https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz 2> /dev/null
 
 	echo 'Unpacking go language'
 	tar -C $GO_INSTALL_FOLDER -xzf go$GO_VERSION.linux-amd64.tar.gz

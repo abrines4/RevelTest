@@ -7,7 +7,7 @@ GOPATH=/home/vagrant/dev
 
 apt-get update
 
-apt-get -y install git mercurial
+apt-get -y install git mercurial sqlite3 libsqlite3-dev
 
 if [ ! -d $GO_INSTALL_FOLDER/go ];then
 	echo 'Downloading go$GO_VERSION.linux-amd64.tar.gz'

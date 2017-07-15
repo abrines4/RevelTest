@@ -3,7 +3,7 @@
 GO_VERSION=1.8.3
 GO_INSTALL_FOLDER=/usr/local
 
-GOPATH=/home/vagrant/dev
+GOPATH=/home/vagrant/go
 
 apt-get update
 
@@ -16,6 +16,7 @@ if [ ! -d $GO_INSTALL_FOLDER/go ];then
 	echo 'Unpacking go language'
 	tar -C $GO_INSTALL_FOLDER -xzf go$GO_VERSION.linux-amd64.tar.gz
 	rm go$GO_VERSION.linux-amd64.tar.gz
+	chown -R vagrant:vagrant go
 
 	echo 'Setting up Go Environment'
 	echo 'export PATH=$PATH:'$GO_INSTALL_FOLDER'/go/bin' >> .profile

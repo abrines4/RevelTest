@@ -4,15 +4,29 @@ package routes
 import "github.com/revel/revel"
 
 
-type tApp struct {}
-var App tApp
+type tGorpController struct {}
+var GorpController tGorpController
 
 
-func (_ tApp) Index(
+func (_ tGorpController) Begin(
 		) string {
 	args := make(map[string]string)
 	
-	return revel.MainRouter.Reverse("App.Index", args).URL
+	return revel.MainRouter.Reverse("GorpController.Begin", args).URL
+}
+
+func (_ tGorpController) Commit(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("GorpController.Commit", args).URL
+}
+
+func (_ tGorpController) Rollback(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("GorpController.Rollback", args).URL
 }
 
 
@@ -81,6 +95,68 @@ func (_ tTestRunner) List(
 	args := make(map[string]string)
 	
 	return revel.MainRouter.Reverse("TestRunner.List", args).URL
+}
+
+
+type tApp struct {}
+var App tApp
+
+
+func (_ tApp) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.Index", args).URL
+}
+
+func (_ tApp) Hello(
+		name string,
+		pass string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "name", name)
+	revel.Unbind(args, "pass", pass)
+	return revel.MainRouter.Reverse("App.Hello", args).URL
+}
+
+
+type tUserCtrl struct {}
+var UserCtrl tUserCtrl
+
+
+func (_ tUserCtrl) Add(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("UserCtrl.Add", args).URL
+}
+
+func (_ tUserCtrl) Get(
+		id int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("UserCtrl.Get", args).URL
+}
+
+func (_ tUserCtrl) Update(
+		id int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("UserCtrl.Update", args).URL
+}
+
+func (_ tUserCtrl) Delete(
+		id int64,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "id", id)
+	return revel.MainRouter.Reverse("UserCtrl.Delete", args).URL
 }
 
 

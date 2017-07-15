@@ -2,8 +2,12 @@
 
 GO_VERSION=1.8.3
 GO_INSTALL_FOLDER=/usr/local
-
 GOPATH=/home/vagrant/go
+
+SQL_ROOT_PASSWORD=testpassword
+SQL_USER_NAME=booker
+SQL_USER_PASSWORD=$SQL_ROOT_PASSWORD
+SQL_DB_NAME=booking
 
 
 apt-get update
@@ -39,15 +43,15 @@ go get -v github.com/go-sql-driver/mysql
 
 
 echo 'Installing Database'
-debconf-set-selections <<< 'mysql-server mysql-server/root_password password testpassword'
-debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password testpassword'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password password '$SQL_ROOT_PASSWORD
+debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password '$SQL_ROOT_PASSWORD
 apt-get install -y mysql-server
 
 # From http://www.websightdesigns.com/posts/view/how-to-configure-an-ubuntu-web-server-vm-with-vagrant
-if [ ! -f /var/lof/dbinstalled ];then
-	echo "CREATE USER 'booker'@'localhost' IDENTIFIED BY 'testpassword'" | mysql -uroot -ptestpassword
-	echo "CREATE DATABASE booking" | mysql -uroot -ptestpassword
-	echo "GRANT ALL ON booking.* TO 'booker'@'localhost'" | mysql -uroot -ptestpassword
-	echo "flush privileges" | mysql -uroot -ptestpassword
+if [ ! -f /var/log/dbinstalled ];then
+	echo "CREATE USER '"$SQL_USER_NAME"'@'localhost' IDENTIFIED BY '"$SQL_USER_PASSWORD"'" | mysql -uroot -p$SQL_ROOT_PASSWORD
+	echo "CREATE DATABASE "$SQL_DB_NAME | mysql -uroot -ptestpassword
+	echo "GRANT ALL ON "$SQL_DB_NAME".* TO '"$SQL_USER_NAME"'@'localhost'" | mysql -uroot -p$SQL_ROOT_PASSWORD
+	echo "flush privileges" | mysql -uroot -p$SQL_ROOT_PASSWORD
 	touch /var/log/dbinstalled
 fi

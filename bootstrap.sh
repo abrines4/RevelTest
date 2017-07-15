@@ -31,3 +31,4 @@ export PATH=$PATH:$GO_INSTALL_FOLDER/go/bin
 export GOPATH=$GOPATH
 
 go get -v github.com/revel/cmd/revel
+go get -v github.com/go-gorp/gorp

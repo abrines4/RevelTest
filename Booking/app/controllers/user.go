@@ -21,3 +21,11 @@ func (c UserCtrl) GetByName(name string) (*models.User, error) {
 	
 	return user, err
 }
+
+func (c UserCtrl) GetById(id int64) (*models.User, error) {
+	user := new(models.User)
+	err := c.Txn.SelectOne(user,
+		`SELECT * FROM User WHERE id = ?`, id)
+	
+	return user, err
+}

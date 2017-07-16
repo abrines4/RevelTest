@@ -134,6 +134,13 @@ func (_ tApp) SaveUser(
 	return revel.MainRouter.Reverse("App.SaveUser", args).URL
 }
 
+func (_ tApp) Home(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.Home", args).URL
+}
+
 
 type tUserCtrl struct {}
 var UserCtrl tUserCtrl

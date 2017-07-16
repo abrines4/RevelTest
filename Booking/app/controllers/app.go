@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/revel/revel"
 	"github.com/Booking/app/models"
+	"strconv"
 )
 
 type App struct {
@@ -25,8 +26,8 @@ func (c App) Login(user models.User) revel.Result {
 		return c.Redirect(App.Index)	
 	}
 
-	c.Flash.Success("Valid Credentials!")
-	return c.Redirect(App.Index)
+	c.Session["user"] = strconv.FormatInt(auth_user.Id, 10)
+	return c.Redirect(App.Home)
 }
 
 func (c App) Register() revel.Result {
@@ -48,4 +49,15 @@ func (c App) SaveUser(new_user models.User) revel.Result {
 
 	c.Flash.Success("User Created!")
 	return c.Redirect(App.Index)
+}
+
+func (c App) Home() revel.Result {
+	user_id, _ := strconv.ParseInt(c.Session["user"], 10, 64)
+	revel.INFO.Println("HOME", user_id)
+	user, err := UserCtrl(c).GetById(user_id)
+	if err != nil || user.Id == 0 {
+		revel.ERROR.Fatal("What even is this", err)
+	}
+
+	return c.Render(user)
 }

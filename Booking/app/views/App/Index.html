@@ -4,7 +4,7 @@
 <header class="jumbotron" style="background-color:#7dedc6">
   <div class="container">
     <div class="row">
-      <h1>It works!</h1>
+      <h1>Login</h1>
       <p></p>
     </div>
   </div>
@@ -14,7 +14,24 @@
   <div class="row">
     <div class="span6">
       {{template "flash.html" .}}
-      <a href="{{url "App.Register"}}">Register new User</a>
+      <form action="{{url "App.Login"}}" method="POST">
+        <div style="width:300px">
+          <div>Name
+            {{with $field := field "user.Name" .}}
+              <input style="float: right" type="text" name="{{$field.Name}}" value="{{$field.Flash}}" />
+            {{end}}
+          </div><br/>
+          <div>Password
+            {{with $field := field "user.Password" .}}
+              <input style="float: right" type="text" name="{{$field.Name}}" value="{{$field.Flash}}" />
+            {{end}}
+          </div><br/>
+          <div>
+            <input style="clear: both" type="submit" value="Login" />
+            <a href="{{url "App.Register"}}">Register new User</a>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

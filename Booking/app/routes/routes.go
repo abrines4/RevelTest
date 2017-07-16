@@ -109,6 +109,15 @@ func (_ tApp) Index(
 	return revel.MainRouter.Reverse("App.Index", args).URL
 }
 
+func (_ tApp) Login(
+		user interface{},
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "user", user)
+	return revel.MainRouter.Reverse("App.Login", args).URL
+}
+
 func (_ tApp) Register(
 		) string {
 	args := make(map[string]string)
@@ -125,54 +134,9 @@ func (_ tApp) SaveUser(
 	return revel.MainRouter.Reverse("App.SaveUser", args).URL
 }
 
-func (_ tApp) Hello(
-		name string,
-		pass string,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "name", name)
-	revel.Unbind(args, "pass", pass)
-	return revel.MainRouter.Reverse("App.Hello", args).URL
-}
-
 
 type tUserCtrl struct {}
 var UserCtrl tUserCtrl
 
-
-func (_ tUserCtrl) Add(
-		) string {
-	args := make(map[string]string)
-	
-	return revel.MainRouter.Reverse("UserCtrl.Add", args).URL
-}
-
-func (_ tUserCtrl) GetById(
-		id int64,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "id", id)
-	return revel.MainRouter.Reverse("UserCtrl.GetById", args).URL
-}
-
-func (_ tUserCtrl) Update(
-		id int64,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "id", id)
-	return revel.MainRouter.Reverse("UserCtrl.Update", args).URL
-}
-
-func (_ tUserCtrl) Delete(
-		id int64,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "id", id)
-	return revel.MainRouter.Reverse("UserCtrl.Delete", args).URL
-}
 
 

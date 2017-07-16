@@ -133,11 +133,19 @@ func main() {
 				},
 			},
 			&revel.MethodType{
+				Name: "Login",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "user", Type: reflect.TypeOf((*models.User)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
 				Name: "Register",
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-					17: []string{ 
+					33: []string{ 
 					},
 				},
 			},
@@ -149,59 +157,15 @@ func main() {
 				RenderArgNames: map[int][]string{ 
 				},
 			},
-			&revel.MethodType{
-				Name: "Hello",
-				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "name", Type: reflect.TypeOf((*string)(nil)) },
-					&revel.MethodArg{Name: "pass", Type: reflect.TypeOf((*string)(nil)) },
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
 			
 		})
 	
 	revel.RegisterController((*controllers.UserCtrl)(nil),
 		[]*revel.MethodType{
-			&revel.MethodType{
-				Name: "Add",
-				Args: []*revel.MethodArg{ 
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
-			&revel.MethodType{
-				Name: "GetById",
-				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*int64)(nil)) },
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
-			&revel.MethodType{
-				Name: "Update",
-				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*int64)(nil)) },
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
-			&revel.MethodType{
-				Name: "Delete",
-				Args: []*revel.MethodArg{ 
-					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*int64)(nil)) },
-				},
-				RenderArgNames: map[int][]string{ 
-				},
-			},
 			
 		})
 	
 	revel.DefaultValidationKeys = map[string]map[int]string{ 
-		"github.com/Booking/app/controllers.App.Hello": { 
-			40: "name",
-			41: "pass",
-		},
 		"github.com/Booking/app/models.(*User).Validate": { 
 			18: "user.Name",
 			23: "user.Password",

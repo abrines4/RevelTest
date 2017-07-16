@@ -35,7 +35,12 @@ func (c UserCtrl) Add() revel.Result {
 	}
 }
 
-func (c UserCtrl) Get(id int64) revel.Result {
+func (c UserCtrl) Create(user *models.User) error {
+	err := c.Txn.Insert(user)
+	return err
+}
+
+func (c UserCtrl) GetById(id int64) revel.Result {
 	user := new(models.User)
 	err := c.Txn.SelectOne(user,
 		`SELECT * FROM User WHERE id = ?`, id)
@@ -44,6 +49,14 @@ func (c UserCtrl) Get(id int64) revel.Result {
 	}
 
 	return c.RenderJSON(user)
+}
+
+func (c UserCtrl) GetByName(name string) (*models.User, error) {
+	user := new(models.User)
+	err := c.Txn.SelectOne(user,
+		`SELECT * FROM User WHERE name = ?`, name)
+	
+	return user, err
 }
 
 func (c UserCtrl) Update(id int64) revel.Result {

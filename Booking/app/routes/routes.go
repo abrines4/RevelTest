@@ -109,6 +109,22 @@ func (_ tApp) Index(
 	return revel.MainRouter.Reverse("App.Index", args).URL
 }
 
+func (_ tApp) Register(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.Register", args).URL
+}
+
+func (_ tApp) SaveUser(
+		new_user interface{},
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "new_user", new_user)
+	return revel.MainRouter.Reverse("App.SaveUser", args).URL
+}
+
 func (_ tApp) Hello(
 		name string,
 		pass string,
@@ -132,13 +148,13 @@ func (_ tUserCtrl) Add(
 	return revel.MainRouter.Reverse("UserCtrl.Add", args).URL
 }
 
-func (_ tUserCtrl) Get(
+func (_ tUserCtrl) GetById(
 		id int64,
 		) string {
 	args := make(map[string]string)
 	
 	revel.Unbind(args, "id", id)
-	return revel.MainRouter.Reverse("UserCtrl.Get", args).URL
+	return revel.MainRouter.Reverse("UserCtrl.GetById", args).URL
 }
 
 func (_ tUserCtrl) Update(

@@ -7,6 +7,7 @@ import (
 	"github.com/revel/revel"
 	_ "github.com/Booking/app"
 	controllers "github.com/Booking/app/controllers"
+	models "github.com/Booking/app/models"
 	tests "github.com/Booking/tests"
 	controllers0 "github.com/revel/modules/static/app/controllers"
 	_ "github.com/revel/modules/testrunner/app"
@@ -132,6 +133,23 @@ func main() {
 				},
 			},
 			&revel.MethodType{
+				Name: "Register",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+					17: []string{ 
+					},
+				},
+			},
+			&revel.MethodType{
+				Name: "SaveUser",
+				Args: []*revel.MethodArg{ 
+					&revel.MethodArg{Name: "new_user", Type: reflect.TypeOf((*models.User)(nil)) },
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
 				Name: "Hello",
 				Args: []*revel.MethodArg{ 
 					&revel.MethodArg{Name: "name", Type: reflect.TypeOf((*string)(nil)) },
@@ -153,7 +171,7 @@ func main() {
 				},
 			},
 			&revel.MethodType{
-				Name: "Get",
+				Name: "GetById",
 				Args: []*revel.MethodArg{ 
 					&revel.MethodArg{Name: "id", Type: reflect.TypeOf((*int64)(nil)) },
 				},
@@ -181,8 +199,8 @@ func main() {
 	
 	revel.DefaultValidationKeys = map[string]map[int]string{ 
 		"github.com/Booking/app/controllers.App.Hello": { 
-			18: "name",
-			19: "pass",
+			40: "name",
+			41: "pass",
 		},
 		"github.com/Booking/app/models.(*User).Validate": { 
 			18: "user.Name",

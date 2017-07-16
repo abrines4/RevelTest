@@ -13,6 +13,28 @@ func (c App) Index() revel.Result {
 	return c.Render()
 }
 
+func (c App) Register() revel.Result {
+	return c.Render()
+}
+
+func (c App) SaveUser(new_user models.User) revel.Result {
+	revel.INFO.Println("Save", new_user.Name, new_user.Password)
+	if user, _ := UserCtrl(c).GetByName(new_user.Name); user.Id > 0 {
+		c.Flash.Error("That name is taken.")
+		revel.INFO.Println("TAKEN", user.Id, " ", user.Name)
+		c.FlashParams()
+		return c.Redirect(App.Register)
+	}
+
+	if err := UserCtrl(c).Create(&new_user); err != nil {
+		c.Flash.Error("There was an error saving the user", err)
+		return c.Redirect(App.Register)
+	}
+
+	c.Flash.Success("User Created!")
+	return c.Redirect(App.Index)
+}
+
 func (c App) Hello(name string, pass string) revel.Result {
 
 	c.Validation.Required(name).Message("A name is required!")

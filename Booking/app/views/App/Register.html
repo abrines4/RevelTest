@@ -1,0 +1,40 @@
+{{set . "title" "Home"}}
+{{template "header.html" .}}
+
+<header class="jumbotron" style="background-color:#7dedc6">
+  <div class="container">
+    <div class="row">
+      <h1>It works!</h1>
+      <p></p>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      {{template "flash.html" .}}
+
+      <form action="{{url "App.SaveUser"}}" method="POST">
+        <div style="width:300px">
+          <div>Name
+            {{with $field := field "new_user.Name" .}}
+              <input style="float: right" type="text" name="{{$field.Name}}" value="{{$field.Flash}}" />
+            {{end}}
+          </div><br/>
+          <div>Password
+            {{with $field := field "new_user.Password" .}}
+              <input style="float: right" type="text" name="{{$field.Name}}" value="{{$field.Flash}}" />
+            {{end}}
+          </div><br/>
+          <div>
+            <input style="clear: both" type="submit" value="Create User" />
+            <a href="{{url "App.Index"}}">Go Back</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{{template "footer.html" .}}
